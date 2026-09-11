@@ -88,8 +88,8 @@ exports.login = async (req, res) => {
         // 5. Store JWT in cookie
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",
+            secure: true,
+            sameSite: "none",
             maxAge: 5 * 24 * 60 * 60 * 1000
         });
 
