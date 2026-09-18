@@ -35,6 +35,7 @@ import {
   Check,
   Trash2,
   LogOut,
+  ChevronLeft,
 } from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -120,7 +121,12 @@ const Sidebar = ({ open, setOpen, projects, setProjects }) => {
             <div className="w-[260px] px-3 flex flex-col h-full min-h-0">
               {/* Account */}
               <div className="flex items-center justify-between px-2 mb-6 shrink-0">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
+                  <Link to={"/"}>
+                    <div className="cursor-pointer text-gray-400 hover:text-[#17171A]">
+                      <ChevronLeft />
+                    </div>
+                  </Link>
                   <div className="w-7 h-7 rounded-full bg-[#4274D9] flex items-center justify-center text-white text-xs font-bold shrink-0">
                     {user?.name[0]}
                   </div>

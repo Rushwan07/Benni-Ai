@@ -112,27 +112,20 @@ const LandingPage = () => {
             </h1>
           </div>
           <div className="flex gap-3">
-            {!user ? (
+            {!user && (
               <Link to={"/login"}>
                 <button className="w-[100px] lg:w-[100px] bg-white border rounded-xl font-semibold py-3 transition-all duration-200 cursor-pointer hover:shadow-2xl hover:scale-105 cursor-pointer">
                   Login
                 </button>
               </Link>
-            ) : (
-              <button
-                onClick={handleSignOut}
-                className="w-[100px] lg:w-[100px] bg-white border rounded-xl font-semibold py-3 transition-all duration-200 cursor-pointer hover:shadow-2xl hover:scale-105 cursor-pointer"
-              >
-                Logout
-              </button>
             )}
 
             {user ? (
               <button
-                onClick={handleStartWriting}
-                className="w-full hidden md:block w-[150px] lg:w-[150px] bg-[#4274D9] text-white rounded-xl font-semibold py-3 transition-all duration-200 hover:bg-[#4338CA] cursor-pointer hover:shadow-2xl hover:scale-105 cursor-pointer"
+                onClick={handleSignOut}
+                className="w-[100px] lg:w-[100px] hidden md:block bg-white border rounded-xl font-semibold py-3 transition-all duration-200 cursor-pointer hover:shadow-2xl hover:scale-105 cursor-pointer"
               >
-                Start writing
+                Logout
               </button>
             ) : (
               <Link to={"/register"}>
@@ -300,7 +293,7 @@ const LandingPage = () => {
             {/* Soft glow behind the card */}
             <div className="absolute -inset-10 bg-[#4274D9]/10 rounded-full blur-3xl -z-10" />
 
-            <div className="w-[400px] bg-white rounded-3xl border border-gray-100 shadow-2xl p-3">
+            <div className="w-[380px] bg-white rounded-3xl border border-gray-100 shadow-2xl p-5">
               <div className="rounded-2xl overflow-hidden aspect-[4/5]">
                 <img
                   src={rushwan}

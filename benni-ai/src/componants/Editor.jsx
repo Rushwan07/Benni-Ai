@@ -423,11 +423,11 @@ const EditorPage = () => {
     if (!editor) return null;
 
     const currentLabel = editorState.heading1
-      ? "Heading 1"
+      ? "H1"
       : editorState.heading2
-        ? "Heading 2"
+        ? "H2"
         : editorState.heading3
-          ? "Heading 3"
+          ? "H3"
           : "Text";
 
     const options = [
@@ -494,7 +494,7 @@ const EditorPage = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -6, scale: 0.97 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
-                className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
+                className="absolute top-full left-0 mt-10 w-48 bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
               >
                 {options.map((opt) => (
                   <button
@@ -599,7 +599,7 @@ const EditorPage = () => {
 
         {/* ---------------- FORMAT TOOLBAR ---------------- */}
 
-        <div className="relative flex items-center gap-1 px-4 sm:px-6 py-2.5 border-b border-gray-100">
+        <div className="relative flex items-center gap-1 px-4 sm:px-6 py-2.5 border-b border-gray-100 flex-wrap">
           {/* Undo */}
           {toolbarButton(
             Undo,
@@ -686,7 +686,7 @@ const EditorPage = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ duration: 0.15, ease: "easeOut" }}
-                    className="absolute top-full left-[-160px] mt-2 w-56 bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
+                    className="absolute top-full left-[-160px] mt-15 lg:mt-2 w-56 bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
                   >
                     {/* Heading options tucked in here too, so mobile isn't missing them */}
                     <button
@@ -753,53 +753,6 @@ const EditorPage = () => {
                     >
                       <Strikethrough size={16} />
                       Strikethrough
-                    </button>
-
-                    <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer">
-                      <Code size={16} />
-                      Code
-                    </button>
-
-                    <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer">
-                      <Superscript size={16} />
-                      Superscript
-                    </button>
-
-                    <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer">
-                      <Subscript size={16} />
-                      Subscript
-                    </button>
-
-                    <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer">
-                      <LinkIcon size={16} />
-                      Link
-                    </button>
-
-                    <div className="h-px bg-gray-100 my-1.5" />
-
-                    <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer">
-                      <AtSign size={16} />
-                      Cite
-                    </button>
-
-                    <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer">
-                      <ImageIcon size={16} />
-                      Image
-                    </button>
-
-                    <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer">
-                      <TableIcon size={16} />
-                      Table
-                    </button>
-
-                    <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer">
-                      <Code2 size={16} />
-                      Code Block
-                    </button>
-
-                    <button className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer">
-                      <Sigma size={16} />
-                      Formula
                     </button>
                   </motion.div>
                 </>
