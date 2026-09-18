@@ -180,9 +180,8 @@ const EditorPage = () => {
       }
     } catch (error) {
       console.log("Failed to save document:", error);
-    }
-    finally{
-      setIsDirty(false)
+    } finally {
+      setIsDirty(false);
     }
   };
 
@@ -538,27 +537,27 @@ const EditorPage = () => {
         {/* ---------------- TOP BAR ---------------- */}
 
         <div className="flex items-center justify-between gap-4 px-4 sm:px-6 py-4 border-b border-gray-100">
-          <div className="flex items-center">
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="text-lg font-semibold text-[#17171A] outline-none bg-transparent min-w-0 flex-1 mx-3"
-            />
-            <motion.button
-              onClick={() => handleSave(selectedDocument._id)}
-              type="button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.92 }}
-              className={`cursor-pointer flex items-center justify-center gap-0.5 px-3 py-2 rounded-xl shrink-0 transition-colors duration-150 ${
-                isDirty
-                  ? "bg-[#4274D9] text-white hover:bg-[#4338CA]"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              <Save size={20} />
-              <span className="text-[15px] font-medium leading-none">Save</span>
-            </motion.button>
-          </div>
+          {/* <div className="flex items-center"> */}
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="text-lg font-semibold text-[#17171A] outline-none bg-transparent min-w-0 flex-1 w-20"
+          />
+          <motion.button
+            onClick={() => handleSave(selectedDocument._id)}
+            type="button"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
+            className={`cursor-pointer flex items-center justify-center gap-0.5 px-3 py-2 rounded-xl shrink-0 transition-colors duration-150 ${
+              isDirty
+                ? "bg-[#4274D9] text-white hover:bg-[#4338CA]"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
+          >
+            <Save size={20} />
+            <span className="text-[15px] font-medium leading-none">Save</span>
+          </motion.button>
+          {/* </div> */}
 
           <div className="flex items-center gap-3 shrink-0">
             <button className="hidden md:flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#17171A] cursor-pointer">
