@@ -163,6 +163,7 @@ const EditorPage = () => {
   // -----------------------------
   const handleSave = async (productId) => {
     try {
+      setSaveLoading(true);
       const content = editor.getHTML();
 
       const data = await saveDocument(productId, title, content);
@@ -182,6 +183,7 @@ const EditorPage = () => {
       console.log("Failed to save document:", error);
     } finally {
       setIsDirty(false);
+      setSaveLoading(false);
     }
   };
 
@@ -344,6 +346,7 @@ const EditorPage = () => {
   };
 
   const [aiLoading, setAiLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
 
   // Splits the generated HTML into top-level blocks (h1, p, ul, etc.)
   // so we can insert them one at a time instead of all at once
@@ -554,8 +557,18 @@ const EditorPage = () => {
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
-            <Save size={20} />
-            <span className="text-[15px] font-medium leading-none">Save</span>
+            {saveLoading ? (
+              <>
+                Saving...
+              </>
+            ) : (
+              <>
+                <Save size={20} />
+                <span className="text-[15px] font-medium leading-none">
+                  Save
+                </span>
+              </>
+            )}
           </motion.button>
           {/* </div> */}
 
@@ -810,7 +823,7 @@ const EditorPage = () => {
                 >
                   <textarea
                     rows={1}
-                    className=" md:w-[calc(100%-200px)] mt-3 w-68 resize-none overflow-hidden border border-gray-300 rounded-2xl p-3 focus:outline-none focus:border-[#4274D9]"
+                    className=" md:w-[calc(100%-200px)] mt-3 w-[60%] resize-none overflow-hidden border border-gray-300 rounded-2xl p-3 focus:outline-none focus:border-[#4274D9]"
                     placeholder="Enter a prompt..."
                     onInput={(e) => {
                       e.target.style.height = "auto";
