@@ -10,6 +10,7 @@ import { useNotification } from "../componants/Notification";
 import Sidebar from "./Sidebar";
 import { getDocuments, saveDocument, useBennie } from "../api/docAPI";
 import { useParams } from "react-router-dom";
+import Logo from "../assets/Ai-logo.webp";
 
 import {
   FileText,
@@ -558,9 +559,7 @@ const EditorPage = () => {
             }`}
           >
             {saveLoading ? (
-              <>
-                Saving...
-              </>
+              <>Saving...</>
             ) : (
               <>
                 <Save size={20} />
@@ -636,35 +635,34 @@ const EditorPage = () => {
             open={headingOpen}
             setOpen={setHeadingOpen}
           />
-
           <div className="w-px h-5 bg-gray-200 mx-2 shrink-0" />
-
-          {/* Bold */}
-          {toolbarButton(
-            Bold,
-            "Bold",
-            toggle(() => editor?.chain().focus().toggleBold().run()),
-            editorState?.bold,
-          )}
-
-          {/* Italic */}
-          {toolbarButton(
-            Italic,
-            "Italic",
-            toggle(() => editor?.chain().focus().toggleItalic().run()),
-            editorState?.italic,
-          )}
-
-          {/* Underline */}
-          {toolbarButton(
-            UnderlineIcon,
-            "Underline",
-            toggle(() => editor?.chain().focus().toggleUnderline().run()),
-            editorState?.underline,
-          )}
-
-          {/* Desktop Strikethrough */}
           <div className="hidden lg:flex items-center gap-1">
+            {/* Bold */}
+            {toolbarButton(
+              Bold,
+              "Bold",
+              toggle(() => editor?.chain().focus().toggleBold().run()),
+              editorState?.bold,
+            )}
+
+            {/* Italic */}
+            {toolbarButton(
+              Italic,
+              "Italic",
+              toggle(() => editor?.chain().focus().toggleItalic().run()),
+              editorState?.italic,
+            )}
+
+            {/* Underline */}
+            {toolbarButton(
+              UnderlineIcon,
+              "Underline",
+              toggle(() => editor?.chain().focus().toggleUnderline().run()),
+              editorState?.underline,
+            )}
+
+            {/* Desktop Strikethrough */}
+
             {toolbarButton(
               Strikethrough,
               "Strikethrough",
@@ -673,6 +671,12 @@ const EditorPage = () => {
             )}
             <div className="w-px h-5 bg-gray-200 mx-2 shrink-0" />
           </div>
+          <button
+            onClick={() => setPromptBoxOpen(!promptBoxOpen)}
+            className="flex items-center gap-1.5 rounded-[50%] text-sm text-gray-600 hover:bg-gray-50 cursor-pointer"
+          >
+            <img className="w-13" src={Logo} alt="" />
+          </button>
 
           {/* Mobile More */}
           <div className="lg:hidden relative shrink-0">
@@ -699,74 +703,43 @@ const EditorPage = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ duration: 0.15, ease: "easeOut" }}
-                    className="absolute top-full left-[-160px] mt-15 lg:mt-2 w-56 bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
+                    className="absolute top-full left-[-160px] mt-2 lg:mt-2 w-56 bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
                   >
-                    {/* Heading options tucked in here too, so mobile isn't missing them */}
-                    <button
-                      onClick={() =>
-                        editor
-                          ?.chain()
-                          .focus()
-                          .toggleHeading({ level: 1 })
-                          .run()
-                      }
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg cursor-pointer ${
-                        editorState?.heading1
-                          ? "bg-[#4274D9]/10 text-[#4274D9]"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      <Heading1 size={16} />
-                      Heading 1
-                    </button>
+                    {/* Bold */}
+                    {toolbarButton(
+                      Bold,
+                      "Bold",
+                      toggle(() => editor?.chain().focus().toggleBold().run()),
+                      editorState?.bold,
+                    )}
 
-                    <button
-                      onClick={() =>
-                        editor
-                          ?.chain()
-                          .focus()
-                          .toggleHeading({ level: 2 })
-                          .run()
-                      }
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg cursor-pointer ${
-                        editorState?.heading2
-                          ? "bg-[#4274D9]/10 text-[#4274D9]"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      <Heading2 size={16} />
-                      Heading 2
-                    </button>
+                    {/* Italic */}
+                    {toolbarButton(
+                      Italic,
+                      "Italic",
+                      toggle(() =>
+                        editor?.chain().focus().toggleItalic().run(),
+                      ),
+                      editorState?.italic,
+                    )}
 
-                    <button
-                      onClick={() =>
-                        editor
-                          ?.chain()
-                          .focus()
-                          .toggleHeading({ level: 3 })
-                          .run()
-                      }
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm rounded-lg cursor-pointer ${
-                        editorState?.heading3
-                          ? "bg-[#4274D9]/10 text-[#4274D9]"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      <Heading3 size={16} />
-                      Heading 3
-                    </button>
-
-                    <div className="h-px bg-gray-100 my-1.5" />
-
-                    <button
-                      onClick={() =>
-                        editor?.chain().focus().toggleStrike().run()
-                      }
-                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg cursor-pointer"
-                    >
-                      <Strikethrough size={16} />
-                      Strikethrough
-                    </button>
+                    {/* Underline */}
+                    {toolbarButton(
+                      UnderlineIcon,
+                      "Underline",
+                      toggle(() =>
+                        editor?.chain().focus().toggleUnderline().run(),
+                      ),
+                      editorState?.underline,
+                    )}
+                    {toolbarButton(
+                      Strikethrough,
+                      "Strikethrough",
+                      toggle(() =>
+                        editor?.chain().focus().toggleStrike().run(),
+                      ),
+                      editorState?.strike,
+                    )}
                   </motion.div>
                 </>
               )}
@@ -795,14 +768,6 @@ const EditorPage = () => {
           <div className="max-w-3xl mx-auto ">
             {/* Prompt Button */}
             <div className=" fixed bg-white top-30 left-50-translate-x-1/2 w-full max-w-3xl px-2 sm:px-10 z-30">
-              <button
-                onClick={() => setPromptBoxOpen(!promptBoxOpen)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 cursor-pointer"
-              >
-                <FileText size={14} />
-                Prompts
-              </button>
-
               {/* Prompt Box */}
 
               {promptBoxOpen && (
