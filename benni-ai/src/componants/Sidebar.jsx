@@ -45,6 +45,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser, createDocument, deleteDocument } from "../api/docAPI";
 import { setUser } from "../feature/Auth/userSlice";
+import Loader from "./Loader";
 
 const Sidebar = ({ open, setOpen, projects, setProjects }) => {
   const { user } = useSelector((state) => state.user);
@@ -54,6 +55,7 @@ const Sidebar = ({ open, setOpen, projects, setProjects }) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const FilteredProducts = projects?.filter((pro) =>
     pro?.title?.toLowerCase().includes(searchInput.toLowerCase()),
@@ -63,6 +65,7 @@ const Sidebar = ({ open, setOpen, projects, setProjects }) => {
     if (!title.trim()) return;
 
     try {
+      setLoading(true);
       const data = await createDocument({
         title: title,
         content: "New Document",
@@ -74,6 +77,8 @@ const Sidebar = ({ open, setOpen, projects, setProjects }) => {
       setOpenNewProject(false);
     } catch (error) {
       console.log("Failed to create document:", error);
+    } finally {
+      setLoading(false);
     }
   };
   const location = useLocation();
@@ -237,7 +242,13 @@ const Sidebar = ({ open, setOpen, projects, setProjects }) => {
                         whileTap={{ scale: 0.92 }}
                         className="cursor-pointer text-gray-700 h-[50px] w-[50px] flex items-center justify-center rounded-xl shrink-0 hover:bg-gray-100 transition-colors duration-150"
                       >
-                        <Check size={22} />
+                        {loading ? (
+                          <Loader />
+                        ) : (
+                          <>
+                            <Check size={22} />
+                          </>
+                        )}
                       </motion.button>
                     </motion.div>
                   </motion.div>
@@ -254,7 +265,6 @@ const Sidebar = ({ open, setOpen, projects, setProjects }) => {
                   type="text"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  autoFocus
                   className="w-full border border-gray-300 rounded-2xl py-3 pl-11 pr-3 outline-none focus:border-[#4274D9] focus:ring-4 focus:ring-[#4274D9]/10 transition-shadow duration-200"
                   placeholder="Search docs..."
                 />
