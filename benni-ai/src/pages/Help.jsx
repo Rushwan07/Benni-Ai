@@ -139,7 +139,7 @@ const HelpPage = () => {
             Reach out and we'll help you get set up.
           </p>
           <a
-            href="mailto:support@benniai.com"
+            href="mailto:rushdeveloper07@gmail.com"
             className="inline-block bg-[#4274D9] hover:bg-[#4338CA] text-white text-sm font-semibold px-6 py-3 rounded-xl transition-colors duration-200 cursor-pointer"
           >
             Contact support
