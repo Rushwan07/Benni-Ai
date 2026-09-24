@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNotification } from "../componants/Notification";
 import Sidebar from "./Sidebar";
 import { getDocuments, saveDocument, useBennie } from "../api/docAPI";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Logo from "../assets/Ai-logo.webp";
 
 import {
@@ -498,7 +498,7 @@ const EditorPage = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -6, scale: 0.97 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
-                className="absolute top-full left-0 mt-10 w-48 bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
+                className="absolute top-full left-0 mt-3 w-48 bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
               >
                 {options.map((opt) => (
                   <button
@@ -572,10 +572,13 @@ const EditorPage = () => {
           {/* </div> */}
 
           <div className="flex items-center gap-3 shrink-0">
+            <Link to={"/help"}>
+            
             <button className="hidden md:flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#17171A] cursor-pointer">
               <HelpCircle size={16} />
               Help
             </button>
+            </Link>
 
             <motion.button
               whileHover={!loading ? { scale: 1.05 } : {}}
@@ -669,13 +672,12 @@ const EditorPage = () => {
               toggle(() => editor?.chain().focus().toggleStrike().run()),
               editorState?.strike,
             )}
-            <div className="w-px h-5 bg-gray-200 mx-2 shrink-0" />
           </div>
           <button
             onClick={() => setPromptBoxOpen(!promptBoxOpen)}
             className="flex items-center gap-1.5 rounded-[50%] text-sm text-gray-600 hover:bg-gray-50 cursor-pointer"
           >
-            <img className="w-13" src={Logo} alt="" />
+            <img className="w-10" src={Logo} alt="" />
           </button>
 
           {/* Mobile More */}
@@ -703,7 +705,7 @@ const EditorPage = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.97 }}
                     transition={{ duration: 0.15, ease: "easeOut" }}
-                    className="absolute top-full left-[-160px] mt-2 lg:mt-2 w-56 bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
+                    className="absolute top-full right-0 mt-2 w-56 max-w-[calc(100vw-2rem)] bg-white rounded-xl border border-gray-200 shadow-lg p-1.5 z-20"
                   >
                     {/* Bold */}
                     {toolbarButton(
@@ -732,6 +734,7 @@ const EditorPage = () => {
                       ),
                       editorState?.underline,
                     )}
+
                     {toolbarButton(
                       Strikethrough,
                       "Strikethrough",

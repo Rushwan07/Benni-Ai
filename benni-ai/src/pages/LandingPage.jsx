@@ -14,7 +14,7 @@ import {
 } from "../componants/SocialIcons";
 import rushwan from "../assets/rushwan.jpg";
 
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/logo-fav.png";
 const LandingPage = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const dispatch = useDispatch();
@@ -104,17 +104,22 @@ const LandingPage = () => {
   return (
     <>
       <div className="p-5">
-        <section className="navbar flex justify-between items-center p-3">
-          <div className="">
-            <h1 className="text-4xl font-extrabold text-[#4274D9] flex items-center">
-              <img className="w-23" src={Logo} alt="" />
+        <section className="navbar flex justify-between items-center p-3 gap-4">
+          <div className="shrink-0">
+            <h1 className="text-4xl font-extrabold text-[#4274D9] flex items-center gap-2">
+              <img
+                className="h-12 w-auto object-contain"
+                src={Logo}
+                alt="Benni AI logo"
+              />
               <span className="text-[#4CAF1A]">Benni</span> AI
             </h1>
           </div>
-          <div className="flex gap-3">
+
+          <div className="flex gap-3 shrink-0">
             {!user && (
               <Link to={"/login"}>
-                <button className="w-[100px] lg:w-[100px] bg-white border rounded-xl font-semibold py-3 transition-all duration-200 cursor-pointer hover:shadow-2xl hover:scale-105 cursor-pointer">
+                <button className="w-[9vh] bg-white border rounded-xl font-semibold py-3 transition-all duration-200 cursor-pointer hover:shadow-2xl hover:scale-105">
                   Login
                 </button>
               </Link>
@@ -123,13 +128,13 @@ const LandingPage = () => {
             {user ? (
               <button
                 onClick={handleSignOut}
-                className="w-[100px] lg:w-[100px] hidden md:block bg-white border rounded-xl font-semibold py-3 transition-all duration-200 cursor-pointer hover:shadow-2xl hover:scale-105 cursor-pointer"
+                className="w-[100px] hidden md:block bg-white border rounded-xl font-semibold py-3 transition-all duration-200 cursor-pointer hover:shadow-2xl hover:scale-105"
               >
                 Logout
               </button>
             ) : (
               <Link to={"/register"}>
-                <button className="w-full hidden md:block w-[150px] lg:w-[150px] bg-[#4274D9] text-white rounded-xl font-semibold py-3 transition-all duration-200 hover:bg-[#4338CA] cursor-pointer hover:shadow-2xl hover:scale-105 cursor-pointer">
+                <button className="hidden md:block w-[150px] bg-[#4274D9] text-white rounded-xl font-semibold py-3 transition-all duration-200 hover:bg-[#4338CA] cursor-pointer hover:shadow-2xl hover:scale-105">
                   Start writing
                 </button>
               </Link>
@@ -375,8 +380,8 @@ const LandingPage = () => {
           <div className="flex flex-col sm:flex-row justify-between gap-10">
             {/* Brand */}
             <div className="items-center flex justify-center flex-wrap text-center max-w-[600px]">
-              <h2 className="text-4xl font-extrabold text-[#4274D9] flex items-center">
-                <img className="w-27" src={Logo} alt="" />
+              <h2 className="text-4xl font-extrabold text-[#4274D9] flex items-center gap-2">
+                <img className="w-auto h-13" src={Logo} alt="" />
                 <span className="text-[#4CAF1A]">Benni</span> AI
               </h2>
               <div className="w-full flex justify-center items-center border-gray-700 my-2">

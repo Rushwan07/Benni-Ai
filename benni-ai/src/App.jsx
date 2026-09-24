@@ -7,6 +7,7 @@ import { NotificationProvider } from "./componants/Notification";
 import { getMe } from "./feature/Auth/userSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import HelpPage from "./pages/Help";
 
 function App() {
   const { user } = useSelector((state) => state.user);
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/help" element={<HelpPage />} />
           <Route
             path="/editor/:docId"
             element={user?.email ? <Editor /> : <Login />}

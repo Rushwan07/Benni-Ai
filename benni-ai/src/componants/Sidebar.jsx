@@ -135,7 +135,7 @@ const Sidebar = ({ open, setOpen, projects, setProjects }) => {
                   <div className="w-7 h-7 rounded-full bg-[#4274D9] flex items-center justify-center text-white text-xs font-bold shrink-0">
                     {user?.name[0]}
                   </div>
-                  <span className="text-sm font-semibold text-[#17171A] whitespace-nowrap w-30 overflow-hidden">
+                  <span className="text-sm font-semibold text-[#17171A] whitespace-nowrap max-w-25 overflow-hidden">
                     {user?.name}
                   </span>
                   <div className="relative">
