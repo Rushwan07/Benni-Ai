@@ -16,7 +16,7 @@ exports.generateContent = async (req, res) => {
         }
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.5-flash",
+            model: "gemini-3.7-flash",
             contents: `You generate HTML content for a Tiptap rich-text editor.
 
 OUTPUT RULES:
