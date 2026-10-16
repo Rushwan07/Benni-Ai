@@ -9,12 +9,13 @@ export const getMe = createAsyncThunk(
         try {
             const res = await axios.get(
                 BASE_URL + "/users/me",
+                {},
                 {
                     withCredentials: true
                 }
             );
 
-
+            // console.log("USERDTA",res.data)
             return res.data.user;
 
         } catch (error) {
