@@ -5,27 +5,30 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const getMe = createAsyncThunk(
     "user/getMe",
+
     async (_, { rejectWithValue }) => {
         try {
             const res = await axios.get(
                 BASE_URL + "/users/me",
-                {},
                 {
                     withCredentials: true
                 }
             );
 
-            // console.log("USERDTA",res.data)
             return res.data.user;
 
         } catch (error) {
-            console.log("ME ERROR:", error.response?.data || error.message);
+            console.log(
+                "ME ERROR:",
+                error.response?.data || error.message
+            );
 
             return rejectWithValue(
                 error.response?.data?.message || "Not authenticated"
             );
         }
     }
+
 );
 
 const initialState = {};
