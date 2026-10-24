@@ -85,11 +85,12 @@ exports.login = async (req, res) => {
             { expiresIn: "5d" }
         );
 
-        // 5. Store JWT in cookie
+        // Store JWT in an HttpOnly cookie
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
             sameSite: "none",
+            path: "/",
             maxAge: 5 * 24 * 60 * 60 * 1000
         });
 
