@@ -15,28 +15,30 @@ import {
 import Logo from "../assets/logo-fav.png";
 
 /* ---------- Static data ---------- */
+
 const CARDS = [
   {
     number: "1",
-    title: "Smart Writing Workspace",
-    desc: "Draft blogs, reports, emails, and research papers in one place. Benni adapts to your tone and gets smarter with every document you write.",
+    title: "AI-Powered Writing Workspace",
+    desc: "Create blogs, articles, reports, and professional documents in one workspace. Write naturally while Benni helps you generate and refine your content.",
   },
   {
     number: "2",
-    title: "Trusted by Thousands",
-    desc: "Over 1000+ writers, students, and professionals use Benni AI to create polished, publish-ready content in a fraction of the time.",
+    title: "Context-Aware AI Memory",
+    desc: "Benni remembers your document's conversation, topics, and writing preferences, helping you continue where you left off without repeating instructions.",
   },
   {
     number: "3",
-    title: "Fast & Distraction-Free",
-    desc: "No clutter, no unnecessary steps. Just open a doc, describe what you need, and Benni helps you write it, quickly and clearly.",
+    title: "Instant Text Improvement",
+    desc: "Select any sentence or paragraph to improve writing, fix grammar, summarize content, or change its tone. Refine exactly what you need without rewriting everything.",
   },
   {
     number: "4",
-    title: "Context-Aware Suggestions",
-    desc: "Benni doesn't just generate text, it understands structure, tone, and intent, so every suggestion actually fits what you're writing.",
+    title: "Your Ideas, Your Instructions",
+    desc: "Give Benni custom instructions to rewrite, expand, or transform selected text. From quick corrections to detailed content generation, stay in control of your writing.",
   },
 ];
+
 
 const USE_CASES = [
   "Teams & Institutions",
