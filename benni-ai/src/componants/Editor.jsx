@@ -960,7 +960,7 @@ const EditorPage = () => {
                       </button>
 
                       <button
-                      className="text-sm hover:text-blue-300"
+                        className="text-sm hover:text-blue-300"
                         onMouseDown={(e) => e.preventDefault()}
                         onClick={() => handleTextAction("grammar")}
                       >

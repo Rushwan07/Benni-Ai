@@ -90,7 +90,7 @@ const NotificationToast = ({ title, message, Icon, duration, onDismiss }) => {
       }}
       onMouseEnter={clearTimer}
       onMouseLeave={startTimer}
-      className="pointer-events-auto absolute top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border border-white/60 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] px-4 py-3.5 flex items-start gap-3 cursor-grab active:cursor-grabbing"
+      className="pointer-events-auto absolute top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border border-white/60 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] px-4 py-3.5 flex items-start gap-3  "
     >
       <div className="w-9 h-9 rounded-xl bg-[#4274D9] flex items-center justify-center shrink-0 mt-0.5">
         <Icon size={17} className="text-white" />
