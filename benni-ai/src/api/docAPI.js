@@ -112,11 +112,21 @@ export const logoutUser = async () => {
 };
 
 
-export const useBennie = async (prompt) => {
+export const useBennie = async ({
+    prompt,
+    documentId,
+    type,
+    text
+}) => {
     try {
         const res = await axios.post(
             BASE_URL + "/ai/generate",
-            { prompt },
+            {
+                prompt,
+                documentId,
+                type,
+                text
+            },
             { withCredentials: true }
         );
 

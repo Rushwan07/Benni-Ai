@@ -44,6 +44,7 @@ import {
 } from "lucide-react";
 import { useEffect } from "react";
 import Loader from "./Loader";
+import AILoader from "./aiLoader";
 
 const EditorPage = () => {
   // -----------------------------
@@ -62,6 +63,14 @@ const EditorPage = () => {
   const [headingOpen, setHeadingOpen] = useState(false);
   const [prompt, setPrompt] = useState();
   const [isDirty, setIsDirty] = useState(false);
+  const [selectedText, setselectedText] = useState("");
+  const [showTextToolbar, setShowTextToolbar] = useState(false);
+  const [toolbarPosition, setToolbarPosition] = useState({
+    x: 0,
+    y: 0,
+  });
+  const [selectedRange, setSelectedRange] = useState(null);
+  const [aiFeatureLoading, setaiFeatureLoading] = useState(false);
 
   const { docId } = useParams();
   useEffect(() => {
@@ -85,7 +94,7 @@ const EditorPage = () => {
 
     setSelectedDocument(document || null);
   }, [docId, Documents]);
-  // console.log("selectedDocument", selectedDocument);
+  // console.log("selectedDocument", selectedDocument._id);
   // -----------------------------
   // Editor
   // -----------------------------
@@ -108,6 +117,33 @@ const EditorPage = () => {
       const text = editor.getText();
       setWordCount(text.replace(/\s/g, "").length);
     },
+    onSelectionUpdate: ({ editor }) => {
+      const { from, to, empty } = editor.state.selection;
+
+      if (empty) {
+        setShowTextToolbar(false);
+        return;
+      }
+
+      const selectedText = editor.state.doc.textBetween(from, to, " ").trim();
+      // console.log("TEXT:", selectedText);
+      setselectedText(selectedText);
+
+      if (!selectedText) {
+        setShowTextToolbar(false);
+        return;
+      }
+      setSelectedRange({ from, to });
+
+      const coords = editor.view.coordsAtPos(from);
+
+      setToolbarPosition({
+        x: coords.left,
+        y: coords.top - 55,
+      });
+
+      setShowTextToolbar(true);
+    },
 
     editorProps: {
       attributes: {
@@ -128,6 +164,72 @@ const EditorPage = () => {
       },
     },
   });
+
+  const handleAiEdit = async () => {
+    // const prompt = {
+    //   type: "aiedit",
+    //   text: selectedText,
+    // };
+    try {
+      const data = await useBennie({
+        type: "improve",
+        text: selectedText,
+        documentId: selectedDocument?._id,
+      });
+
+      if (data.status === "success") {
+        console.log("data", data);
+      }
+    } catch (error) {
+      if (error.status === 503) {
+        notify({
+          title: "Generation failed",
+          message:
+            "Bennie is busy. Please try again in a moment." ||
+            "Please try again.",
+        });
+      } else {
+        notify({
+          title: "Generation failed",
+          message: "Something went wrong. Please try again.",
+        });
+      }
+    }
+  };
+
+  const handleTextAction = async (type) => {
+    if (!editor || !selectedRange) return;
+
+    try {
+      setaiFeatureLoading(true);
+      const selectedText = editor.state.doc.textBetween(
+        selectedRange.from,
+        selectedRange.to,
+        " ",
+      );
+
+      const data = await useBennie({
+        type,
+        text: selectedText,
+        documentId: selectedDocument?._id,
+      });
+
+      if (data.status === "success") {
+        editor
+          .chain()
+          .focus()
+          .insertContentAt(selectedRange, data.content)
+          .run();
+
+        setShowTextToolbar(false);
+        setSelectedRange(null);
+      }
+    } catch (error) {
+      console.error("Text action failed:", error);
+    } finally {
+      setaiFeatureLoading(false);
+    }
+  };
 
   // -----------------------------
   // Editor State
@@ -365,7 +467,10 @@ const EditorPage = () => {
     setAiLoading(true);
 
     try {
-      const data = await useBennie(prompt);
+      const data = await useBennie({
+        prompt: prompt,
+        documentId: selectedDocument?._id,
+      });
 
       if (data.status === "success") {
         setPromptBoxOpen(false);
@@ -573,11 +678,10 @@ const EditorPage = () => {
 
           <div className="flex items-center gap-3 shrink-0">
             <Link to={"/help"}>
-            
-            <button className="hidden md:flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#17171A] cursor-pointer">
-              <HelpCircle size={16} />
-              Help
-            </button>
+              <button className="hidden md:flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#17171A] cursor-pointer">
+                <HelpCircle size={16} />
+                Help
+              </button>
             </Link>
 
             <motion.button
@@ -830,9 +934,42 @@ const EditorPage = () => {
             </div>
 
             {/* Tiptap Editor */}
-
             <div className="mt-5">
               <EditorContent editor={editor} />
+
+              {showTextToolbar && (
+                <div
+                  style={{
+                    position: "fixed",
+                    left: toolbarPosition.x,
+                    top: toolbarPosition.y,
+                    zIndex: 100,
+                  }}
+                  className="bg-[#17171A] text-white p-3 rounded-xl shadow-xl flex items-center gap-3 "
+                >
+                  {aiFeatureLoading ? (
+                    <AILoader />
+                  ) : (
+                    <div className="gap-3 flex items-center">
+                      <button
+                        className="text-sm hover:text-blue-300"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => handleTextAction("improve")}
+                      >
+                        AI Edit
+                      </button>
+
+                      <button
+                      className="text-sm hover:text-blue-300"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => handleTextAction("grammar")}
+                      >
+                        Fix Grammar
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </motion.div>
